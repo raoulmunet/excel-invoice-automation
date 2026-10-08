@@ -1,6 +1,6 @@
 # v0.4 Payment Tracking Test Plan
 
-Status: SOURCE PREVIEW. The new module has not been tested in Excel. Target: Windows 11, Excel 2019 Desktop in VirtualBox.
+Status (2026-10-08): USER-REPORTED PASS — payment workflow confirmed working in Windows 11 / Excel 2019 Desktop in VirtualBox. The user reported 'Am testat si platile, totul e ok'. Detailed per-case results were not supplied.
 
 ## Upgrade existing v0.3 XLSM
 1. Back up your working XLSM.
@@ -31,4 +31,8 @@ Status: SOURCE PREVIEW. The new module has not been tested in Excel. Target: Win
 
 Status rules: Paid (zero balance); Overdue (balance positive and due date before today); Partially Paid (some payment and not overdue); otherwise Unpaid.
 
-Limitations: synthetic data only, single-user workbook, no refunds/reversals, no currency management, no fiscal or real payment processing. Editing ledger cells directly may invalidate calculations. All v0.4 tests are pending user confirmation.
+Limitations: synthetic data only, single-user workbook, no refunds/reversals, no currency management, no fiscal or real payment processing. Editing ledger cells directly may invalidate calculations. v0.4 payment workflow is owner-confirmed; exhaustive edge-case verification is still pending.
+
+## Validation record
+- 2026-10-08: Owner confirms payment functions work; record as a successful functional smoke test.
+- Not independently verified: every individual invalid-input scenario, overdue-date boundary and save/reopen test.
