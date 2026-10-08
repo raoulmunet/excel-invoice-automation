@@ -1,6 +1,6 @@
 # v1.0 Dashboard UI Preview — Office 2019 Acceptance
 
-**Status:** source published, Excel 2019 user test pending. Previously confirmed v0.4 and Outlook workflows are preserved; this document is NOT a release sign-off.
+**Status (2026-10-09):** owner-confirmed UI smoke test in Excel 2019: obsolete row-19 text no longer overlaps and button labels are more legible. Full end-to-end regression remains pending. Previously confirmed v0.4 and Outlook workflows are preserved; this document is NOT a release sign-off.
 
 ## Safe upgrade to your populated XLSM
 
@@ -32,6 +32,10 @@ This is a **presentation/UX milestone**, not a final v1.0 release package. There
 
 ## Screenshot review, 2026-10-08
 
-Initial Dashboard screenshot confirms the overall layout: grouped actions, visible catalog and payment KPIs, and distinct commercial/workflow areas. Two cosmetic issues were identified: the legacy payment label was still visible on row 19, and button label text was small. Source fixes were applied to both `modUI.bas` and `modPayments.bas` (remove obsolete A19 title even on future KPI refresh, enlarge action fonts). **The corrected layout is pending a second user check.**
+Initial Dashboard screenshot confirms the overall layout: grouped actions, visible catalog and payment KPIs, and distinct commercial/workflow areas. Two cosmetic issues were identified: the legacy payment label was still visible on row 19, and button label text was small. Source fixes were applied to both `modUI.bas` and `modPayments.bas` (remove obsolete A19 title even on future KPI refresh, enlarge action fonts). **The owner subsequently confirmed both visual corrections successful.**
 
 To test the corrections: replace both `modUI` and `modPayments` in the VBA editor with the latest source files, Compile VBAProject, run `InitializeInvoiceApp` and then `Refresh Payments`, and confirm the ghost heading remains gone.
+
+## Owner visual confirmation — 2026-10-09
+
+**PASS (user-reported):** after replacing modUI and modPayments, the previously overlapping text on row 19 disappeared and button labels became easier to read. This validates the two visual fixes only; it does not prove the complete version 1.0 regression suite or a distributable XLSM has been tested.
