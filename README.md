@@ -110,7 +110,7 @@ The PowerShell builder imports **five** source modules: `modCatalog`, `modSetup`
 
 ## v1.0 interface preview — modern Excel Dashboard
 
-**Status: published source; awaiting owner tests in Excel 2019.** The earlier v0.4 / Outlook integration smoke tests were successful, but this new presentation layer still needs verification. **This is not the final v1.0 release.**
+**Status: Dashboard layout and visual fixes confirmed by the owner in Excel 2019; full release regression remains pending.** The earlier v0.4 / Outlook integration smoke tests were successful, but this new presentation layer still needs verification. **This is not the final v1.0 release.**
 
 Changes: a dark-blue dashboard header, grouped quick actions, separate commercial/payment navigation areas, redesigned customer and financial KPI blocks, demo-only warning, and coordinated data-sheet header styling. No existing VBA business logic is changed. Module: [src/modUI.bas](src/modUI.bas).
 
@@ -215,7 +215,7 @@ LICENSE
 - **v0.2** Quotation draft, line items, sample tax and discounts, and quote numbering — basic execution confirmed by project owner; detailed test cases pending.
 - **v0.3** Word/PDF quote export, demo invoice creation and duplicate prevention — owner-confirmed working. Classic Outlook draft creation owner-confirmed (no automatic sending); manual dispatch not separately tested.
 - **v0.4** Demo payment ledger, calculated balances and status, KPI dashboard and invoice filtering — owner-reported successful tests on Excel 2019.
-- **v1.0 UI preview** Modern Dashboard, grouped action buttons and visual refinements — source published, Excel 2019 tests pending.
+- **v1.0 UI preview** Modern Dashboard, grouped action buttons and visual refinements — owner-confirmed visual smoke test on Excel 2019.
 - **v1.0 final** Demo dataset, full regression tests, screenshots, release package and Upwork-ready portfolio — pending.
 
 ## License
