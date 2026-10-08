@@ -42,6 +42,7 @@ Public Sub ApplyProfessionalTheme()
         .Range("A4").Value2 = "LIVE OVERVIEW"
         SectionTitle ws, "A5:B5", "CUSTOMERS & CATALOG"
         SectionTitle ws, "A18:B18", "DEMO FINANCIAL OVERVIEW"
+        .Range("A19").ClearContents  ' Remove obsolete title from v0.4; KPI values start at row 20.
         SectionTitle ws, "G5:J5", "QUICK ACTIONS"
         SectionTitle ws, "G12:J12", "COMMERCIAL WORKFLOW"
         SectionTitle ws, "G18:J18", "PAYMENTS & ANALYTICS"
@@ -128,7 +129,7 @@ Private Sub PlaceAction(ByVal ws As Worksheet, ByVal macroName As String, _
     sh.Left = anchor.Left + 3
     sh.Top = anchor.Top + 2
     If width > 0 Then sh.Width = anchor.Width * 1.65
-    sh.Height = 28
+    sh.Height = 30
     sh.Placement = xlMove
     sh.Line.Visible = msoFalse
     sh.Fill.ForeColor.RGB = RGB(35, 111, 161)
@@ -136,7 +137,7 @@ Private Sub PlaceAction(ByVal ws As Worksheet, ByVal macroName As String, _
         sh.Fill.ForeColor.RGB = RGB(25, 135, 99)
     With sh.TextFrame
         .Characters.Font.Name = "Calibri"
-        .Characters.Font.Size = 10
+        .Characters.Font.Size = 12
         .Characters.Font.Bold = True
         .Characters.Font.Color = vbWhite
         .HorizontalAlignment = xlHAlignCenter
