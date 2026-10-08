@@ -1,7 +1,7 @@
 # v0.3 Word/PDF and Outlook Manual Acceptance Tests
 
 **Target environment:** VirtualBox Windows 11; Excel 2019, Word 2019 and (optional) Classic Outlook Desktop.
-**Status:** code on GitHub; **no user runtime verification yet**. v0.2 was owner-confirmed before these modifications.
+**Status (2026-10-08):** owner confirms quotation export generated Word and PDF correctly on Windows 11 / Office 2019. This is a successful functional smoke test; individual edge cases, demo invoices, and Classic Outlook drafts remain pending.
 
 ## Install (upgrade without losing data)
 1. Back up the working v0.2 `.xlsm`.
@@ -35,4 +35,9 @@ Use the previously saved quote `QUO-0001` from `CUS-0001` and `PRD-0001`.
 
 ## Release gate
 
-Do not advertise Word/PDF/Outlook features as tested until explicitly verified by the user in Office 2019. Real fiscal invoicing, localized tax rules, numbering compliance and Romanian RO e-Factura are **out of scope**.
+Word/PDF quotation generation is owner-confirmed working in Office 2019; do not advertise demo invoice or Outlook draft features as tested until verified. Real fiscal invoicing, localized tax rules, numbering compliance and Romanian RO e-Factura are **out of scope**.
+
+## Owner validation record
+
+- **2026-10-08 — PASS (user-reported):** Word and PDF generated successfully, and the user confirmed they were OK.
+- **Pending:** demo invoice creation, repeat-quote protection, Classic Outlook draft preparation, negative cases, and save/reopen persistence.
