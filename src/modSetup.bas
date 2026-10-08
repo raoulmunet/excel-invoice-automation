@@ -12,11 +12,13 @@ Public Sub InitializeInvoiceApp()
     EnsureDataSheet "Quotation Lines", Array("Quote ID", "Product ID", "Description", "Quantity", "Unit Price", "Tax Rate", "Net", "Discount", "Tax", "Gross")
     SetupQuoteDraft
     EnsureDataSheet "Demo Invoices", Array("Demo Invoice ID", "Created At", "Quote ID", "Customer ID", "Customer", "Gross", "Due Date", "Status")
+    EnsurePaymentStorage
     Set dash = EnsureDashboard()
     BuildNavigation dash
     RefreshCatalogKpis
+    RefreshPaymentDashboard
     dash.Activate
-    MsgBox "Invoice & Quotation Automation v0.3 is ready.", vbInformation
+    MsgBox "Invoice & Quotation Automation v0.4 is ready.", vbInformation
     Exit Sub
 Failure:
     MsgBox "Setup failed: " & Err.Description, vbExclamation
@@ -79,7 +81,7 @@ Private Function EnsureDashboard() As Worksheet
         .Font.Bold = True
         .VerticalAlignment = xlCenter
     End With
-    ws.Range("A1").Value2 = "INVOICE & QUOTATION AUTOMATION | v0.3"
+    ws.Range("A1").Value2 = "INVOICE & QUOTATION AUTOMATION | v0.4"
     ws.Range("A4").Value2 = "Customer and product catalogs — Excel VBA"
     ws.Range("A6").Value2 = "Active customers"
     ws.Range("A7").Value2 = "Active products/services"
@@ -87,7 +89,7 @@ Private Function EnsureDashboard() As Worksheet
     ws.Range("A6:A8").Font.Bold = True
     ws.Range("B6:B8").Interior.Color = RGB(234, 243, 249)
     ws.Range("A9").Value2 = "Last quotation"
-    ws.Range("A12").Value2 = "v0.3 demo only: quotations and invoices are NOT fiscal documents. Review Outlook drafts before sending."
+    ws.Range("A12").Value2 = "DEMO ONLY: quotations, invoices and payments are not fiscal or banking records. Review Outlook drafts manually."
     ws.Range("A12:E13").Merge
     ws.Range("A12:E13").WrapText = True
     ws.Range("A12").Font.Color = RGB(90, 97, 110)
@@ -108,6 +110,9 @@ Private Sub BuildNavigation(ByVal ws As Worksheet)
     DashboardButton ws, "Quote Word/PDF", "ExportQuotationWordPdf", ws.Range("D14"), RGB(38, 105, 158)
     DashboardButton ws, "Demo Invoice", "CreateDemoInvoice", ws.Range("E14"), RGB(38, 105, 158)
     DashboardButton ws, "Outlook Draft", "PrepareQuotationOutlookDraft", ws.Range("D16"), RGB(38, 105, 158)
+    DashboardButton ws, "Record Payment", "RecordDemoPayment", ws.Range("D20"), RGB(27, 126, 88)
+    DashboardButton ws, "Refresh Payments", "RefreshPaymentDashboard", ws.Range("E20"), RGB(38, 105, 158)
+    DashboardButton ws, "Filter Invoices", "FilterDemoInvoices", ws.Range("D22"), RGB(38, 105, 158)
 End Sub
 
 Private Sub DashboardButton(ByVal ws As Worksheet, ByVal caption As String, _
@@ -160,4 +165,29 @@ Private Sub SetupQuoteDraft()
     ws.Range("A10:B29").Interior.Color = RGB(236, 245, 251)
     ws.Range("A10:A29").NumberFormat = "@"
     ws.Range("A31").Value2 = "Click Create Quote on the Dashboard or run CreateQuotation (Alt+F8)."
+End Sub
+
+Private Sub EnsurePaymentStorage()
+    Dim invoices As Worksheet
+    EnsureDataSheet "Payments", Array("Payment ID", "Recorded At", "Demo Invoice ID", _
+                        "Amount", "Reference")
+    Set invoices = ThisWorkbook.Worksheets("Demo Invoices")
+    ' Do NOT clear pre-existing invoice data; add derived columns after v0.3 status.
+    invoices.Cells(1, 9).Value2 = "Amount Paid"
+    invoices.Cells(1, 10).Value2 = "Balance"
+    invoices.Cells(1, 11).Value2 = "Payment Status"
+    With invoices.Range("I1:K1")
+        .Interior.Color = RGB(25, 53, 85)
+        .Font.Color = vbWhite
+        .Font.Bold = True
+        .RowHeight = 29
+    End With
+    invoices.Columns("I:J").NumberFormat = "#,##0.00"
+    invoices.Columns("I:K").ColumnWidth = 20
+    invoices.Columns("G").NumberFormat = "yyyy-mm-dd"
+    With ThisWorkbook.Worksheets("Payments")
+        .Columns("A").NumberFormat = "@"
+        .Columns("C").NumberFormat = "@"
+        .Columns("D").NumberFormat = "#,##0.00"
+    End With
 End Sub
