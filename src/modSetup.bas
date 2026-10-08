@@ -11,11 +11,12 @@ Public Sub InitializeInvoiceApp()
     EnsureDataSheet "Quotations", Array("Quote ID", "Created At", "Customer ID", "Customer", "Discount Rate", "Net", "Discount", "Tax", "Gross", "Status")
     EnsureDataSheet "Quotation Lines", Array("Quote ID", "Product ID", "Description", "Quantity", "Unit Price", "Tax Rate", "Net", "Discount", "Tax", "Gross")
     SetupQuoteDraft
+    EnsureDataSheet "Demo Invoices", Array("Demo Invoice ID", "Created At", "Quote ID", "Customer ID", "Customer", "Gross", "Due Date", "Status")
     Set dash = EnsureDashboard()
     BuildNavigation dash
     RefreshCatalogKpis
     dash.Activate
-    MsgBox "Invoice & Quotation Automation v0.2 is ready.", vbInformation
+    MsgBox "Invoice & Quotation Automation v0.3 is ready.", vbInformation
     Exit Sub
 Failure:
     MsgBox "Setup failed: " & Err.Description, vbExclamation
@@ -78,7 +79,7 @@ Private Function EnsureDashboard() As Worksheet
         .Font.Bold = True
         .VerticalAlignment = xlCenter
     End With
-    ws.Range("A1").Value2 = "INVOICE & QUOTATION AUTOMATION | v0.2"
+    ws.Range("A1").Value2 = "INVOICE & QUOTATION AUTOMATION | v0.3"
     ws.Range("A4").Value2 = "Customer and product catalogs — Excel VBA"
     ws.Range("A6").Value2 = "Active customers"
     ws.Range("A7").Value2 = "Active products/services"
@@ -86,7 +87,7 @@ Private Function EnsureDashboard() As Worksheet
     ws.Range("A6:A8").Font.Bold = True
     ws.Range("B6:B8").Interior.Color = RGB(234, 243, 249)
     ws.Range("A9").Value2 = "Last quotation"
-    ws.Range("A12").Value2 = "v0.2: quotes are demo records, not legal invoices. PDF / Word / Outlook planned."
+    ws.Range("A12").Value2 = "v0.3 demo only: quotations and invoices are NOT fiscal documents. Review Outlook drafts before sending."
     ws.Range("A12:E13").Merge
     ws.Range("A12:E13").WrapText = True
     ws.Range("A12").Font.Color = RGB(90, 97, 110)
@@ -104,6 +105,9 @@ Private Sub BuildNavigation(ByVal ws As Worksheet)
     DashboardButton ws, "Refresh KPI", "RefreshCatalogKpis", ws.Range("D8"), RGB(38, 105, 158)
     DashboardButton ws, "Quote Draft", "PrepareQuoteDraft", ws.Range("D10"), RGB(38, 105, 158)
     DashboardButton ws, "Create Quote", "CreateQuotation", ws.Range("E10"), RGB(27, 126, 88)
+    DashboardButton ws, "Quote Word/PDF", "ExportQuotationWordPdf", ws.Range("D14"), RGB(38, 105, 158)
+    DashboardButton ws, "Demo Invoice", "CreateDemoInvoice", ws.Range("E14"), RGB(38, 105, 158)
+    DashboardButton ws, "Outlook Draft", "PrepareQuotationOutlookDraft", ws.Range("D16"), RGB(38, 105, 158)
 End Sub
 
 Private Sub DashboardButton(ByVal ws As Worksheet, ByVal caption As String, _
