@@ -1,0 +1,4 @@
+Customer ID,Customer Name,Email,Country,Status
+CUS-0001,Northwind Demo Services,demo.customer@example.com,RO,Active
+CUS-0002,Blue Harbor Consulting,demo.billing@example.org,FR,Active
+CUS-0003,Acme Sample Retail,accounts@example.net,DE,Active
