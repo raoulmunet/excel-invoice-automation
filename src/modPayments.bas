@@ -110,7 +110,8 @@ Public Sub RefreshPaymentDashboard()
             If status = "Overdue" Then overdueTotal = overdueTotal + remaining
         End If
     Next r
-    dash.Range("A19").Value2 = "DEMO PAYMENT OVERVIEW"
+    ' A18:B18 is the dashboard section header in v1 UI.
+    dash.Range("A19").ClearContents
     dash.Range("A20").Value2 = "Demo invoices"
     dash.Range("B20").Value2 = countInvoices
     dash.Range("A21").Value2 = "Total demo billed"
@@ -122,11 +123,7 @@ Public Sub RefreshPaymentDashboard()
     dash.Range("A24").Value2 = "Overdue balance"
     dash.Range("B24").Value2 = overdueTotal
     dash.Range("B21:B24").NumberFormat = "#,##0.00"
-    With dash.Range("A19:B19")
-        .Interior.Color = RGB(25, 53, 85)
-        .Font.Color = vbWhite
-        .Font.Bold = True
-    End With
+
     dash.Range("A20:A24").Font.Bold = True
     dash.Range("B20:B24").Interior.Color = RGB(234, 243, 249)
     Exit Sub
