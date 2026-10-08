@@ -8,11 +8,14 @@ Public Sub InitializeInvoiceApp()
     EnsureDataSheet "Customers", Array("Customer ID", "Customer Name", "Email", "Country", "Status", "Created At")
     EnsureDataSheet "Products", Array("Product ID", "Product/Service", "Unit Price", "Demo Tax Rate", "Status", "Created At")
     EnsureDataSheet "Audit Log", Array("Timestamp", "Action", "Record ID", "Details")
+    EnsureDataSheet "Quotations", Array("Quote ID", "Created At", "Customer ID", "Customer", "Discount Rate", "Net", "Discount", "Tax", "Gross", "Status")
+    EnsureDataSheet "Quotation Lines", Array("Quote ID", "Product ID", "Description", "Quantity", "Unit Price", "Tax Rate", "Net", "Discount", "Tax", "Gross")
+    SetupQuoteDraft
     Set dash = EnsureDashboard()
     BuildNavigation dash
     RefreshCatalogKpis
     dash.Activate
-    MsgBox "Invoice & Quotation Automation v0.1 is ready.", vbInformation
+    MsgBox "Invoice & Quotation Automation v0.2 is ready.", vbInformation
     Exit Sub
 Failure:
     MsgBox "Setup failed: " & Err.Description, vbExclamation
@@ -75,14 +78,15 @@ Private Function EnsureDashboard() As Worksheet
         .Font.Bold = True
         .VerticalAlignment = xlCenter
     End With
-    ws.Range("A1").Value2 = "INVOICE & QUOTATION AUTOMATION | v0.1"
+    ws.Range("A1").Value2 = "INVOICE & QUOTATION AUTOMATION | v0.2"
     ws.Range("A4").Value2 = "Customer and product catalogs — Excel VBA"
     ws.Range("A6").Value2 = "Active customers"
     ws.Range("A7").Value2 = "Active products/services"
     ws.Range("A8").Value2 = "Last refresh"
     ws.Range("A6:A8").Font.Bold = True
     ws.Range("B6:B8").Interior.Color = RGB(234, 243, 249)
-    ws.Range("A12").Value2 = "Quotes / invoices / PDF / Outlook: planned for later versions."
+    ws.Range("A9").Value2 = "Last quotation"
+    ws.Range("A12").Value2 = "v0.2: quotes are demo records, not legal invoices. PDF / Word / Outlook planned."
     ws.Range("A12:E13").Merge
     ws.Range("A12:E13").WrapText = True
     ws.Range("A12").Font.Color = RGB(90, 97, 110)
@@ -98,6 +102,8 @@ Private Sub BuildNavigation(ByVal ws As Worksheet)
     DashboardButton ws, "Customers", "ShowCustomers", ws.Range("D6"), RGB(38, 105, 158)
     DashboardButton ws, "Products", "ShowProducts", ws.Range("E6"), RGB(38, 105, 158)
     DashboardButton ws, "Refresh KPI", "RefreshCatalogKpis", ws.Range("D8"), RGB(38, 105, 158)
+    DashboardButton ws, "Quote Draft", "PrepareQuoteDraft", ws.Range("D10"), RGB(38, 105, 158)
+    DashboardButton ws, "Create Quote", "CreateQuotation", ws.Range("E10"), RGB(27, 126, 88)
 End Sub
 
 Private Sub DashboardButton(ByVal ws As Worksheet, ByVal caption As String, _
@@ -115,4 +121,39 @@ Private Sub DashboardButton(ByVal ws As Worksheet, ByVal caption As String, _
         .OnAction = "'" & Replace(ThisWorkbook.Name, "'", "''") & "'!" & macroName
         .Placement = xlMoveAndSize
     End With
+End Sub
+
+Private Sub SetupQuoteDraft()
+    Dim ws As Worksheet
+    Dim i As Long
+    On Error Resume Next
+    Set ws = ThisWorkbook.Worksheets("Quote Draft")
+    On Error GoTo 0
+    If ws Is Nothing Then
+        Set ws = ThisWorkbook.Worksheets.Add(After:=ThisWorkbook.Worksheets(ThisWorkbook.Worksheets.Count))
+        ws.Name = "Quote Draft"
+    End If
+    ws.Columns("A").ColumnWidth = 24
+    ws.Columns("B").ColumnWidth = 18
+    ws.Columns("C").ColumnWidth = 46
+    ws.Columns("D").ColumnWidth = 25
+    ws.Range("A1:D2").Merge
+    With ws.Range("A1:D2")
+        .Interior.Color = RGB(25, 53, 85)
+        .Font.Color = vbWhite
+        .Font.Bold = True
+        .Font.Size = 17
+    End With
+    ws.Range("A1").Value2 = "QUOTATION DRAFT | v0.2"
+    ws.Range("A4").Value2 = "Customer ID"
+    ws.Range("A5").Value2 = "Discount % (0-100)"
+    ws.Range("A7").Value2 = "Add catalog product IDs and positive quantities below."
+    ws.Range("A9").Value2 = "Product ID"
+    ws.Range("B9").Value2 = "Quantity"
+    ws.Range("A9:B9").Interior.Color = RGB(25, 53, 85)
+    ws.Range("A9:B9").Font.Color = vbWhite
+    ws.Range("A9:B9").Font.Bold = True
+    ws.Range("A10:B29").Interior.Color = RGB(236, 245, 251)
+    ws.Range("A10:A29").NumberFormat = "@"
+    ws.Range("A31").Value2 = "Click Create Quote on the Dashboard or run CreateQuotation (Alt+F8)."
 End Sub
