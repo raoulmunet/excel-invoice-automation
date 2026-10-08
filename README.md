@@ -99,6 +99,15 @@ See [tests/PAYMENTS_TESTS.md](tests/PAYMENTS_TESTS.md) for exact test values.
 
 The PowerShell builder imports **five** source modules: `modCatalog`, `modSetup`, `modQuotations`, `modDocuments`, `modPayments`. Never overwrite an XLSM that already contains your data.
 
+## v1.0 portfolio demo resources
+
+- [User guide](docs/USER_GUIDE.md): step-by-step catalog, quotation, Word/PDF, demo invoice, payments and Classic Outlook workflow.
+- [Fictional customers CSV](samples/demo-v1-customers.csv) and [fictional products CSV](samples/demo-v1-products.csv): example records only (not auto-imported).
+- [Walkthrough scenarios](samples/demo-v1-scenarios.md): quoted totals, partial payments, overdue and Outlook draft test.
+- [UI regression checklist](tests/UI_V1_TESTS.md): final sign-off still required.
+
+**Never email reserved `example.com` / `example.org` / `example.net` customer records.** Replace the recipient with an owned test address for the Outlook test. Do not publicly upload a workbook containing personal contact information.
+
 ## v1.0 interface preview — modern Excel Dashboard
 
 **Status: published source; awaiting owner tests in Excel 2019.** The earlier v0.4 / Outlook integration smoke tests were successful, but this new presentation layer still needs verification. **This is not the final v1.0 release.**
