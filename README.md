@@ -2,7 +2,7 @@
 
 Microsoft Excel + VBA business automation portfolio project: customer catalog, product/service catalog, audit history and dashboard, with quotation, invoice, PDF and Outlook automation planned in later releases.
 
-> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. Detailed totals, edge cases and other Office versions remain unverified.
+> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. **v0.3 Word/PDF export, demo invoices and Classic Outlook drafts are now published as source but not yet runtime tested.**
 
 ## Implemented in v0.1
 
@@ -15,7 +15,7 @@ Microsoft Excel + VBA business automation portfolio project: customer catalog, p
 
 ### Explicitly not yet implemented
 
-Legal invoice generation, Word templates, PDF exports, Outlook email drafts, payments, multi-user control, inventory tracking and legal tax compliance. They are on the roadmap; v0.1 must **not** be presented as a complete invoicing product.
+Legally compliant fiscal invoices, external editable Word templates, payment processing, multi-user control, inventory tracking and tax compliance. They are on the roadmap; v0.1 must **not** be presented as a complete invoicing product.
 
 ## v0.2 Quotation Engine (basic Excel 2019 operation confirmed)
 
@@ -44,6 +44,34 @@ The updated `build/Create-InvoiceWorkbook.ps1` imports **three modules**: `modCa
 
 Read the acceptance checklist: [tests/QUOTATIONS_TESTS.md](tests/QUOTATIONS_TESTS.md).
 
+## v0.3 Word / PDF / Demo Invoice / Outlook (source preview)
+
+**Not yet tested in Microsoft Office.** This version adds `src/modDocuments.bas` and new Dashboard buttons:
+
+- **Quote Word/PDF** — enter saved quotation ID (e.g. `QUO-0001`), choose an output `.docx` name, and produce Word and PDF files with quote lines and totals using Word 2019 Desktop automation.
+- **Demo Invoice** — record a **DEMO-INV-0001**-style internal document from an existing quotation in a `Demo Invoices` worksheet. This is a non-fiscal, non-compliant **demonstration record**, not a VAT invoice or legal billing document.
+- **Outlook Draft** — select an existing quote and manually select the generated PDF to attach; opens a Classic Outlook draft with the catalog customer email. It **never sends email automatically**. Review recipient, amount and attachments before sending.
+
+**Limitations:** Word document formatting uses programmatically created content; external DOCX template customization is scheduled for a later version. The demo has no configured currency, business issuer details, VAT registration, fiscal invoice numbering compliance, Romanian RO e-Factura integration or payment reconciliation. It must not be used to issue real-world legal invoices. DOCX and PDF exports refuse to overwrite existing files. The Outlook PDF picker does not verify that the manually selected PDF matches the quotation — check it yourself.
+
+### Upgrade from your working v0.2 XLSM
+
+1. **Save a backup of the working XLSM** (or download source from `backup/v0.2-tested`). Do not run the clean-build script on top of your populated workbook.
+2. Download the latest `src/modSetup.bas` and new `src/modDocuments.bas` from GitHub.
+3. In Excel press **Alt+F11**; export a backup of old `modSetup` and remove that old module. Import the new `modSetup.bas`.
+4. Import **`modDocuments.bas`**. Keep `modCatalog.bas` and `modQuotations.bas` unchanged. Four standard modules are expected.
+5. Select **Debug > Compile VBAProject** and stop if any error appears.
+6. Run **`InitializeInvoiceApp`** via Alt+F8. It creates the `Demo Invoices` sheet and new Dashboard buttons **without deleting your customers, products or quotations**.
+7. Ensure Microsoft Word 2019 Desktop is installed before clicking **Quote Word/PDF**. Use fictional quote data and a fresh output path.
+8. If Classic Outlook is installed and configured, test **Outlook Draft**, but **do not send** the email.
+9. Test **Demo Invoice** separately. Check `Demo Invoices` and `Audit Log`.
+
+See [v0.3 acceptance tests](tests/DOCUMENTS_TESTS.md).
+
+### Fresh installation
+
+The clean workbook builder now imports **four source modules**: `modCatalog`, `modSetup`, `modQuotations` and `modDocuments`. It does not overwrite existing XLSM files.
+
 ## Environment and compatibility
 
 | Environment | Status | Details |
@@ -57,7 +85,7 @@ Read the acceptance checklist: [tests/QUOTATIONS_TESTS.md](tests/QUOTATIONS_TEST
 | Linux, LibreOffice or Wine | Not supported | No reliable Excel VBA compatibility claim |
 | Excel in browser | Not supported | Excel Online does not run VBA |
 
-**Office dependencies:** v0.1 requires only Excel Desktop and its included VBA environment. Access, Word, PowerPoint, Outlook, databases, third-party libraries and internet access are not required to run v0.1. Future Word/Outlook integrations will require the respective Windows desktop apps; Outlook COM automation requires **Classic Outlook**, not New Outlook.
+**Office dependencies:** v0.1/v0.2 require only Excel Desktop and VBA; v0.3 document export additionally requires **Microsoft Word Desktop for Windows**, and email drafts require **Classic Outlook for Windows**. Access, Word, PowerPoint, Outlook, databases, third-party libraries and internet access are not required to run v0.1. All Word and Outlook automation is late-bound COM. **New Outlook does not support this Classic Outlook automation model.**
 
 **Security and support:** Excel 2019 (and Office 2016) reached end of support on 14 October 2025. Prefer supported Office for client production work. Do not enable macros from untrusted sources or globally disable macro security. The optional automated build requires temporary **Trust access to the VBA project object model** in Excel; turn it off when finished. Corporate policies may prohibit this option.
 
@@ -83,7 +111,7 @@ The first command is only needed if your environment permits it and the script i
 ### Manual build without PowerShell
 
 1. In Excel Desktop create a blank workbook; Save As `ExcelInvoiceAutomation.xlsm`.
-2. Press **Alt+F11**; import **only** `src/modCatalog.bas`, `src/modSetup.bas`, and `src/modQuotations.bas` via **File > Import File**.
+2. Press **Alt+F11**; import the four modules: `src/modCatalog.bas`, `src/modSetup.bas`, `src/modQuotations.bas`, and `src/modDocuments.bas` via **File > Import File**.
 3. Run **Debug > Compile VBAProject**.
 4. Run `InitializeInvoiceApp` via **Alt+F8**.
 5. Remove unused blank worksheets if needed; keep all application sheets.
@@ -105,6 +133,7 @@ Detailed test cases in [tests/ACCEPTANCE.md](tests/ACCEPTANCE.md). **v0.1 and v0
 src/modCatalog.bas
 src/modSetup.bas
 src/modQuotations.bas
+src/modDocuments.bas
 build/Create-InvoiceWorkbook.ps1
 samples/demo-customers.csv
 samples/demo-products.csv
@@ -126,7 +155,7 @@ LICENSE
 
 - **v0.1** Customer/Product Catalog + Dashboard — basic tests owner-confirmed on Excel 2019.
 - **v0.2** Quotation draft, line items, sample tax and discounts, and quote numbering — basic execution confirmed by project owner; detailed test cases pending.
-- **v0.3** Invoice records, PDF and Word document templates, Classic Outlook draft creation.
+- **v0.3** Word/PDF quote export, non-fiscal demo invoice records and Classic Outlook draft creation — source published, runtime verification pending.
 - **v1.0** Payment-status tracking, dashboards, tests, screenshots, release package and Upwork-ready portfolio.
 
 ## License
