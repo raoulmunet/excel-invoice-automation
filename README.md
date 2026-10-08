@@ -2,7 +2,7 @@
 
 Microsoft Excel + VBA business automation portfolio project: customer catalog, product/service catalog, audit history and dashboard, with quotation, invoice, PDF and Outlook automation planned in later releases.
 
-> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. **v0.3 Word/PDF quotation export has been confirmed working by the project owner in Windows 11 / Excel and Word 2019.** **Demo invoice creation and duplicate prevention have also been confirmed by the project owner.** Classic Outlook draft preparation remains untested because Outlook 2019 is installed but not configured.
+> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. **v0.3 Word/PDF quotation export has been confirmed working by the project owner in Windows 11 / Excel and Word 2019.** **Demo invoice creation and duplicate prevention have also been confirmed by the project owner.** Classic Outlook draft preparation remains untested because Outlook 2019 is installed but not configured. **v0.4 Payment Tracking and Dashboard source is now published, but has not been executed or validated in Excel.**
 
 ## Implemented in v0.1
 
@@ -72,6 +72,33 @@ See [v0.3 acceptance tests](tests/DOCUMENTS_TESTS.md).
 
 The clean workbook builder now imports **four source modules**: `modCatalog`, `modSetup`, `modQuotations` and `modDocuments`. It does not overwrite existing XLSM files.
 
+## v0.4 Payment Tracking & Business Dashboard (untested source preview)
+
+v0.4 adds the standard VBA module `src/modPayments.bas` and works with **fictional demo invoices only**.
+
+- `Payments` worksheet: append-only records (payment ID, timestamp, demo invoice ID, amount, reference).
+- `Demo Invoices` columns I–K: amount paid, outstanding balance and calculated status.
+- Statuses: **Unpaid**, **Partially Paid**, **Paid**, **Overdue**. Overdue takes precedence over partial payment when balance remains and due date is before today.
+- Dashboard KPIs at A19:B24: number of demo invoices, total demo billed, recorded payments, outstanding and overdue balances.
+- New commands: **Record Payment**, **Refresh Payments**, **Filter Invoices**. Filters cover statuses or All.
+
+### Upgrade without losing v0.3 records
+
+1. Back up your already working `.xlsm`.
+2. Download **the newest** `src/modSetup.bas` and **new** `src/modPayments.bas`.
+3. In the VBA editor, export a backup and remove the old `modSetup`; import the updated `modSetup.bas` and new `modPayments.bas`. Retain `modCatalog`, `modQuotations`, `modDocuments`.
+4. Run **Debug > Compile VBAProject**. Resolve all errors before testing.
+5. Execute `InitializeInvoiceApp` using Alt+F8. Existing catalog, quote and demo invoice records are retained. A new `Payments` sheet and derived invoice columns are added.
+6. Test partial and full payments against a fictional invoice, refresh KPI metrics, filter and save/reopen.
+
+See [tests/PAYMENTS_TESTS.md](tests/PAYMENTS_TESTS.md) for exact test values.
+
+**Constraints:** not legal accounting/invoicing software; no payment gateway, currency conversion, refunds or transaction rollback. Payment records are stored locally in one workbook, intended for a single user; manual cell edits and concurrent access are unsupported. The new v0.4 features have **not** yet been tested inside Office 2019.
+
+### Fresh build
+
+The PowerShell builder imports **five** source modules: `modCatalog`, `modSetup`, `modQuotations`, `modDocuments`, `modPayments`. Never overwrite an XLSM that already contains your data.
+
 ## Environment and compatibility
 
 | Environment | Status | Details |
@@ -111,7 +138,7 @@ The first command is only needed if your environment permits it and the script i
 ### Manual build without PowerShell
 
 1. In Excel Desktop create a blank workbook; Save As `ExcelInvoiceAutomation.xlsm`.
-2. Press **Alt+F11**; import the four modules: `src/modCatalog.bas`, `src/modSetup.bas`, `src/modQuotations.bas`, and `src/modDocuments.bas` via **File > Import File**.
+2. Press **Alt+F11**; import the five modules: `src/modCatalog.bas`, `src/modSetup.bas`, `src/modQuotations.bas`, `src/modDocuments.bas`, and `src/modPayments.bas` via **File > Import File**.
 3. Run **Debug > Compile VBAProject**.
 4. Run `InitializeInvoiceApp` via **Alt+F8**.
 5. Remove unused blank worksheets if needed; keep all application sheets.
@@ -134,6 +161,7 @@ src/modCatalog.bas
 src/modSetup.bas
 src/modQuotations.bas
 src/modDocuments.bas
+src/modPayments.bas
 build/Create-InvoiceWorkbook.ps1
 samples/demo-customers.csv
 samples/demo-products.csv
@@ -156,7 +184,8 @@ LICENSE
 - **v0.1** Customer/Product Catalog + Dashboard — basic tests owner-confirmed on Excel 2019.
 - **v0.2** Quotation draft, line items, sample tax and discounts, and quote numbering — basic execution confirmed by project owner; detailed test cases pending.
 - **v0.3** Word/PDF quote export, demo invoice creation and duplicate prevention — owner-confirmed working. Outlook draft testing pending until a profile is configured.
-- **v1.0** Payment-status tracking, dashboards, tests, screenshots, release package and Upwork-ready portfolio.
+- **v0.4** Demo payment ledger, calculated balances and status, KPI dashboard and invoice filtering — source published; Excel testing pending.
+- **v1.0** Final testing, screenshots, safe demo release package and Upwork-ready portfolio.
 
 ## License
 
