@@ -1,7 +1,7 @@
 # v0.3 Word/PDF and Outlook Manual Acceptance Tests
 
 **Target environment:** VirtualBox Windows 11; Excel 2019, Word 2019 and (optional) Classic Outlook Desktop.
-**Status (2026-10-08):** owner confirms quotation export generated Word and PDF correctly on Windows 11 / Office 2019. This is a successful functional smoke test; individual edge cases, demo invoices, and Classic Outlook drafts remain pending.
+**Status (2026-10-08):** owner confirms quotation export generated Word and PDF correctly on Windows 11 / Office 2019. This is a successful functional smoke test; individual edge cases and Classic Outlook drafts remain pending. Demo invoice creation and duplicate prevention were subsequently confirmed by the owner.
 
 ## Install (upgrade without losing data)
 1. Back up the working v0.2 `.xlsm`.
@@ -35,9 +35,10 @@ Use the previously saved quote `QUO-0001` from `CUS-0001` and `PRD-0001`.
 
 ## Release gate
 
-Word/PDF quotation generation is owner-confirmed working in Office 2019; do not advertise demo invoice or Outlook draft features as tested until verified. Real fiscal invoicing, localized tax rules, numbering compliance and Romanian RO e-Factura are **out of scope**.
+Word/PDF quotation generation is owner-confirmed working in Office 2019; demo invoice creation and duplicate protection are owner-confirmed; do not advertise Outlook draft creation as tested until verified. Real fiscal invoicing, localized tax rules, numbering compliance and Romanian RO e-Factura are **out of scope**.
 
 ## Owner validation record
 
 - **2026-10-08 — PASS (user-reported):** Word and PDF generated successfully, and the user confirmed they were OK.
-- **Pending:** demo invoice creation, repeat-quote protection, Classic Outlook draft preparation, negative cases, and save/reopen persistence.
+- **PASS (owner-reported):** demo invoice creation from a saved quote and rejection of a second demo invoice for the same quote.
+- **Pending:** Classic Outlook draft preparation (Outlook installed but no account/profile configured), other negative cases, and save/reopen persistence.
