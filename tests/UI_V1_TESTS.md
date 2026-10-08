@@ -29,3 +29,9 @@
 ## Known v1.0-preview boundaries
 
 This is a **presentation/UX milestone**, not a final v1.0 release package. There is no public downloadable verified XLSM binary yet. Future steps: demo dataset, release packaging, screenshots, comprehensive edge-case tests and optional manual Outlook send verification. This workbook stores fictitious data; it does not issue fiscal invoices.
+
+## Screenshot review, 2026-10-08
+
+Initial Dashboard screenshot confirms the overall layout: grouped actions, visible catalog and payment KPIs, and distinct commercial/workflow areas. Two cosmetic issues were identified: the legacy payment label was still visible on row 19, and button label text was small. Source fixes were applied to both `modUI.bas` and `modPayments.bas` (remove obsolete A19 title even on future KPI refresh, enlarge action fonts). **The corrected layout is pending a second user check.**
+
+To test the corrections: replace both `modUI` and `modPayments` in the VBA editor with the latest source files, Compile VBAProject, run `InitializeInvoiceApp` and then `Refresh Payments`, and confirm the ghost heading remains gone.
