@@ -2,7 +2,7 @@
 
 Microsoft Excel + VBA business automation portfolio project: customer catalog, product/service catalog, audit history and dashboard, with quotation, invoice, PDF and Outlook automation planned in later releases.
 
-> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. **v0.3 Word/PDF export, demo invoices and Classic Outlook drafts are now published as source but not yet runtime tested.**
+> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. **v0.3 Word/PDF quotation export has been confirmed working by the project owner in Windows 11 / Excel and Word 2019.** Demo invoice records and Classic Outlook drafts have not yet been independently confirmed.
 
 ## Implemented in v0.1
 
@@ -46,7 +46,7 @@ Read the acceptance checklist: [tests/QUOTATIONS_TESTS.md](tests/QUOTATIONS_TEST
 
 ## v0.3 Word / PDF / Demo Invoice / Outlook (source preview)
 
-**Not yet tested in Microsoft Office.** This version adds `src/modDocuments.bas` and new Dashboard buttons:
+**Word and PDF generation owner-tested successfully in Microsoft Office 2019 (2026-10-08); other v0.3 features still await validation.** This version adds `src/modDocuments.bas` and new Dashboard buttons:
 
 - **Quote Word/PDF** — enter saved quotation ID (e.g. `QUO-0001`), choose an output `.docx` name, and produce Word and PDF files with quote lines and totals using Word 2019 Desktop automation.
 - **Demo Invoice** — record a **DEMO-INV-0001**-style internal document from an existing quotation in a `Demo Invoices` worksheet. This is a non-fiscal, non-compliant **demonstration record**, not a VAT invoice or legal billing document.
@@ -155,7 +155,7 @@ LICENSE
 
 - **v0.1** Customer/Product Catalog + Dashboard — basic tests owner-confirmed on Excel 2019.
 - **v0.2** Quotation draft, line items, sample tax and discounts, and quote numbering — basic execution confirmed by project owner; detailed test cases pending.
-- **v0.3** Word/PDF quote export, non-fiscal demo invoice records and Classic Outlook draft creation — source published, runtime verification pending.
+- **v0.3** Word/PDF quote export — owner-confirmed working; demo invoice and Outlook draft testing pending.
 - **v1.0** Payment-status tracking, dashboards, tests, screenshots, release package and Upwork-ready portfolio.
 
 ## License
