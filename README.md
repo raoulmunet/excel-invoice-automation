@@ -2,7 +2,7 @@
 
 Microsoft Excel + VBA business automation portfolio project: customer catalog, product/service catalog, audit history and dashboard, with quotation, invoice, PDF and Outlook automation planned in later releases.
 
-> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. **v0.3 Word/PDF quotation export has been confirmed working by the project owner in Windows 11 / Excel and Word 2019.** Demo invoice records and Classic Outlook drafts have not yet been independently confirmed.
+> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. **v0.3 Word/PDF quotation export has been confirmed working by the project owner in Windows 11 / Excel and Word 2019.** **Demo invoice creation and duplicate prevention have also been confirmed by the project owner.** Classic Outlook draft preparation remains untested because Outlook 2019 is installed but not configured.
 
 ## Implemented in v0.1
 
@@ -155,7 +155,7 @@ LICENSE
 
 - **v0.1** Customer/Product Catalog + Dashboard — basic tests owner-confirmed on Excel 2019.
 - **v0.2** Quotation draft, line items, sample tax and discounts, and quote numbering — basic execution confirmed by project owner; detailed test cases pending.
-- **v0.3** Word/PDF quote export — owner-confirmed working; demo invoice and Outlook draft testing pending.
+- **v0.3** Word/PDF quote export, demo invoice creation and duplicate prevention — owner-confirmed working. Outlook draft testing pending until a profile is configured.
 - **v1.0** Payment-status tracking, dashboards, tests, screenshots, release package and Upwork-ready portfolio.
 
 ## License
