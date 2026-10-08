@@ -43,3 +43,18 @@ To test the corrections: replace both `modUI` and `modPayments` in the VBA edito
 ## Sanitized package validation (owner report, 2026-10-09)
 
 The owner confirmed completion of all steps through step 5 of the local demo-sanitization workflow, including opening and checking the generated workbook. Result: owner-reported PASS for the sanitized demo smoke test. Next release gate: inspect the generated XLSM itself for privacy/embedded metadata and check a reproducible demo scenario before attaching it to the public GitHub v1.0 release.
+
+
+## Independent static audit of uploaded sanitized XLSM — 2026-10-09
+
+Uploaded file: ExcelInvoiceAutomation_DEMO.xlsm; ZIP/OOXML structure passes integrity check.
+- Nine expected worksheets present; all are visible.
+- Customers contains three fictional companies and reserved example-domain email addresses. Products contains four fictional services.
+- Quotations, Quotation Lines, Demo Invoices, Payments and Audit Log contain header rows only. Quote Draft contains labels but no persisted transaction.
+- No external-link, connection, query, embedding or comment package parts identified.
+- The VBA project binary is still embedded in the XLSM; this is structural confirmation, **not VBA execution verification**.
+- XML/shared-string email search found only reserved example-domain addresses. The original test mailbox was not found in the scanned VBA binary via simple byte/string probes.
+- **Remaining publication decision:** workbook core metadata `dc:creator` and `cp:lastModifiedBy` contain the owner's full name. Confirm deliberate attribution or remove metadata before public redistribution.
+- **Limit:** the audit is static and does not certify full VBA binary decompilation, Office functionality, absence of all private identifiers, or absence of malicious code. Final macro execution must be verified by the owner.
+
+**Release gate:** awaiting user choice on retaining/removing personal author metadata; then perform final package hash and publish only the vetted demo workbook.
