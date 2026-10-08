@@ -1,6 +1,6 @@
 #requires -Version 5.1
 <#
-Builds a macro-enabled Excel workbook with five source modules.
+Builds a macro-enabled Excel workbook with six source modules.
 Requires Microsoft Excel Desktop for Windows and temporary
 "Trust access to the VBA project object model" permission.
 Never disables security settings or overwrites output.
@@ -18,7 +18,8 @@ $sourceFiles = @(
     (Join-Path $root 'src\modSetup.bas'),
     (Join-Path $root 'src\modQuotations.bas'),
     (Join-Path $root 'src\modDocuments.bas'),
-    (Join-Path $root 'src\modPayments.bas')
+    (Join-Path $root 'src\modPayments.bas'),
+    (Join-Path $root 'src\modUI.bas')
 )
 foreach ($source in $sourceFiles) {
     if (-not (Test-Path -LiteralPath $source)) {
