@@ -99,6 +99,26 @@ See [tests/PAYMENTS_TESTS.md](tests/PAYMENTS_TESTS.md) for exact test values.
 
 The PowerShell builder imports **five** source modules: `modCatalog`, `modSetup`, `modQuotations`, `modDocuments`, `modPayments`. Never overwrite an XLSM that already contains your data.
 
+## v1.0 interface preview — modern Excel Dashboard
+
+**Status: published source; awaiting owner tests in Excel 2019.** The earlier v0.4 / Outlook integration smoke tests were successful, but this new presentation layer still needs verification. **This is not the final v1.0 release.**
+
+Changes: a dark-blue dashboard header, grouped quick actions, separate commercial/payment navigation areas, redesigned customer and financial KPI blocks, demo-only warning, and coordinated data-sheet header styling. No existing VBA business logic is changed. Module: [src/modUI.bas](src/modUI.bas).
+
+### Upgrade without losing your data
+
+1. Save a backup of your working ExcelInvoiceAutomation.xlsm.
+2. Download the latest [modSetup.bas](src/modSetup.bas) and new [modUI.bas](src/modUI.bas).
+3. In the VBA editor export/remove **only the old** `modSetup`, import updated `modSetup.bas`, and import `modUI.bas`.
+4. Keep existing `modCatalog`, `modQuotations`, `modDocuments`, `modPayments`. Expected total: **six** standard modules.
+5. Run **Debug > Compile VBAProject**. Stop if an error occurs.
+6. Use **Alt+F8 > InitializeInvoiceApp**. It reapplies the new Dashboard without clearing existing records. Verify the action buttons and KPI counters.
+7. Save/reopen the workbook. Check all existing functionality.
+
+To build a fresh **empty** XLSM instead, the updated PowerShell builder imports six modules, including `modUI`; it refuses to overwrite an existing workbook.
+
+See [tests/UI_V1_TESTS.md](tests/UI_V1_TESTS.md) for visual and regression checks. **Screenshots, fictitious demo dataset, verified binary release package and full end-to-end tests are upcoming tasks.**
+
 ## Environment and compatibility
 
 | Environment | Status | Details |
@@ -138,7 +158,7 @@ The first command is only needed if your environment permits it and the script i
 ### Manual build without PowerShell
 
 1. In Excel Desktop create a blank workbook; Save As `ExcelInvoiceAutomation.xlsm`.
-2. Press **Alt+F11**; import the five modules: `src/modCatalog.bas`, `src/modSetup.bas`, `src/modQuotations.bas`, `src/modDocuments.bas`, and `src/modPayments.bas` via **File > Import File**.
+2. Press **Alt+F11**; import the six modules: `src/modCatalog.bas`, `src/modSetup.bas`, `src/modQuotations.bas`, `src/modDocuments.bas`, `src/modPayments.bas`, and `src/modUI.bas` via **File > Import File**.
 3. Run **Debug > Compile VBAProject**.
 4. Run `InitializeInvoiceApp` via **Alt+F8**.
 5. Remove unused blank worksheets if needed; keep all application sheets.
@@ -162,6 +182,7 @@ src/modSetup.bas
 src/modQuotations.bas
 src/modDocuments.bas
 src/modPayments.bas
+src/modUI.bas
 build/Create-InvoiceWorkbook.ps1
 samples/demo-customers.csv
 samples/demo-products.csv
@@ -185,7 +206,8 @@ LICENSE
 - **v0.2** Quotation draft, line items, sample tax and discounts, and quote numbering — basic execution confirmed by project owner; detailed test cases pending.
 - **v0.3** Word/PDF quote export, demo invoice creation and duplicate prevention — owner-confirmed working. Classic Outlook draft creation owner-confirmed (no automatic sending); manual dispatch not separately tested.
 - **v0.4** Demo payment ledger, calculated balances and status, KPI dashboard and invoice filtering — owner-reported successful tests on Excel 2019.
-- **v1.0** Final testing, screenshots, safe demo release package and Upwork-ready portfolio.
+- **v1.0 UI preview** Modern Dashboard, grouped action buttons and visual refinements — source published, Excel 2019 tests pending.
+- **v1.0 final** Demo dataset, full regression tests, screenshots, release package and Upwork-ready portfolio — pending.
 
 ## License
 
