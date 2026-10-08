@@ -1,6 +1,6 @@
 #requires -Version 5.1
 <#
-Builds a macro-enabled Excel workbook with two source modules.
+Builds a macro-enabled Excel workbook with three source modules.
 Requires Microsoft Excel Desktop for Windows and temporary
 "Trust access to the VBA project object model" permission.
 Never disables security settings or overwrites output.
@@ -15,7 +15,8 @@ if (Test-Path -LiteralPath $OutputPath) {
 }
 $sourceFiles = @(
     (Join-Path $root 'src\modCatalog.bas'),
-    (Join-Path $root 'src\modSetup.bas')
+    (Join-Path $root 'src\modSetup.bas'),
+    (Join-Path $root 'src\modQuotations.bas')
 )
 foreach ($source in $sourceFiles) {
     if (-not (Test-Path -LiteralPath $source)) {
@@ -45,7 +46,7 @@ try {
     # Delete only unused blank default worksheets.
     for ($i = $workbook.Worksheets.Count; $i -ge 1; $i--) {
         $sheet = $workbook.Worksheets.Item($i)
-        if ($sheet.Name -notin @('Dashboard', 'Customers', 'Products', 'Audit Log')) {
+        if ($sheet.Name -notin @('Dashboard', 'Customers', 'Products', 'Audit Log', 'Quote Draft', 'Quotations', 'Quotation Lines')) {
             if ($sheet.UsedRange.Count -eq 1 -and [string]::IsNullOrWhiteSpace([string]$sheet.Range('A1').Value2)) {
                 $sheet.Delete()
             }
