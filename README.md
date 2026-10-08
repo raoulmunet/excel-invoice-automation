@@ -2,7 +2,7 @@
 
 Microsoft Excel + VBA business automation portfolio project: customer catalog, product/service catalog, audit history and dashboard, with quotation, invoice, PDF and Outlook automation planned in later releases.
 
-> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. **v0.3 Word/PDF quotation export has been confirmed working by the project owner in Windows 11 / Excel and Word 2019.** **Demo invoice creation and duplicate prevention have also been confirmed by the project owner.** Classic Outlook draft preparation remains untested because Outlook 2019 is installed but not configured. **v0.4 Payment Tracking and Dashboard source is now published, but has not been executed or validated in Excel.**
+> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. **v0.3 Word/PDF quotation export has been confirmed working by the project owner in Windows 11 / Excel and Word 2019.** **Demo invoice creation and duplicate prevention have also been confirmed by the project owner.** Classic Outlook draft preparation remains untested because Outlook 2019 is installed but not configured. **v0.4 payment tracking was tested successfully by the project owner in Windows 11 / Excel 2019; detailed edge cases were not individually reported.**
 
 ## Implemented in v0.1
 
@@ -72,7 +72,7 @@ See [v0.3 acceptance tests](tests/DOCUMENTS_TESTS.md).
 
 The clean workbook builder now imports **four source modules**: `modCatalog`, `modSetup`, `modQuotations` and `modDocuments`. It does not overwrite existing XLSM files.
 
-## v0.4 Payment Tracking & Business Dashboard (untested source preview)
+## v0.4 Payment Tracking & Business Dashboard (owner-tested)
 
 v0.4 adds the standard VBA module `src/modPayments.bas` and works with **fictional demo invoices only**.
 
@@ -93,7 +93,7 @@ v0.4 adds the standard VBA module `src/modPayments.bas` and works with **fiction
 
 See [tests/PAYMENTS_TESTS.md](tests/PAYMENTS_TESTS.md) for exact test values.
 
-**Constraints:** not legal accounting/invoicing software; no payment gateway, currency conversion, refunds or transaction rollback. Payment records are stored locally in one workbook, intended for a single user; manual cell edits and concurrent access are unsupported. The new v0.4 features have **not** yet been tested inside Office 2019.
+**Constraints:** not legal accounting/invoicing software; no payment gateway, currency conversion, refunds or transaction rollback. Payment records are stored locally in one workbook, intended for a single user; manual cell edits and concurrent access are unsupported. The owner confirms that v0.4 payment functionality works in Excel 2019. Individual negative and edge cases have not all been separately verified.
 
 ### Fresh build
 
@@ -184,7 +184,7 @@ LICENSE
 - **v0.1** Customer/Product Catalog + Dashboard — basic tests owner-confirmed on Excel 2019.
 - **v0.2** Quotation draft, line items, sample tax and discounts, and quote numbering — basic execution confirmed by project owner; detailed test cases pending.
 - **v0.3** Word/PDF quote export, demo invoice creation and duplicate prevention — owner-confirmed working. Outlook draft testing pending until a profile is configured.
-- **v0.4** Demo payment ledger, calculated balances and status, KPI dashboard and invoice filtering — source published; Excel testing pending.
+- **v0.4** Demo payment ledger, calculated balances and status, KPI dashboard and invoice filtering — owner-reported successful tests on Excel 2019.
 - **v1.0** Final testing, screenshots, safe demo release package and Upwork-ready portfolio.
 
 ## License
