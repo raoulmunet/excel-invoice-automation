@@ -17,8 +17,9 @@ Public Sub InitializeInvoiceApp()
     BuildNavigation dash
     RefreshCatalogKpis
     RefreshPaymentDashboard
+    ApplyProfessionalTheme
     dash.Activate
-    MsgBox "Invoice & Quotation Automation v0.4 is ready.", vbInformation
+    MsgBox "Invoice & Quotation Automation v1.0 interface preview is ready.", vbInformation
     Exit Sub
 Failure:
     MsgBox "Setup failed: " & Err.Description, vbExclamation
