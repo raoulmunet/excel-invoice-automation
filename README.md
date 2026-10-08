@@ -2,7 +2,7 @@
 
 Microsoft Excel + VBA business automation portfolio project: customer catalog, product/service catalog, audit history and dashboard, with quotation, invoice, PDF and Outlook automation planned in later releases.
 
-> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine source is now available but not yet tested in Excel**. Its calculation, storage and compatibility must be validated before production use.
+> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. Detailed totals, edge cases and other Office versions remain unverified.
 
 ## Implemented in v0.1
 
@@ -17,7 +17,7 @@ Microsoft Excel + VBA business automation portfolio project: customer catalog, p
 
 Legal invoice generation, Word templates, PDF exports, Outlook email drafts, payments, multi-user control, inventory tracking and legal tax compliance. They are on the roadmap; v0.1 must **not** be presented as a complete invoicing product.
 
-## v0.2 Quotation Engine (source preview; runtime testing pending)
+## v0.2 Quotation Engine (basic Excel 2019 operation confirmed)
 
 - A **Quote Draft** worksheet for Customer ID, discount percent and up to 20 catalog products with quantities.
 - `CreateQuotation` validates active customer and products, quantities, prices and sample tax rates before saving.
@@ -97,7 +97,7 @@ The first command is only needed if your environment permits it and the script i
 5. Check `Audit Log` has entries `CREATE_CUSTOMER` and `CREATE_PRODUCT`.
 6. Save, close and reopen; confirm catalog data persists.
 
-Detailed test cases in [tests/ACCEPTANCE.md](tests/ACCEPTANCE.md). **v0.1 basic operations were confirmed by the project owner. v0.2 quotation operations remain untested.**
+Detailed test cases in [tests/ACCEPTANCE.md](tests/ACCEPTANCE.md). **v0.1 and v0.2 basic operations have been confirmed by the project owner. Individual acceptance assertions remain pending.**
 
 ## Repository structure
 
@@ -125,7 +125,7 @@ LICENSE
 ## Roadmap
 
 - **v0.1** Customer/Product Catalog + Dashboard — basic tests owner-confirmed on Excel 2019.
-- **v0.2** Quotation draft, line items, sample tax and discounts, and quote numbering — published as source; Excel testing pending.
+- **v0.2** Quotation draft, line items, sample tax and discounts, and quote numbering — basic execution confirmed by project owner; detailed test cases pending.
 - **v0.3** Invoice records, PDF and Word document templates, Classic Outlook draft creation.
 - **v1.0** Payment-status tracking, dashboards, tests, screenshots, release package and Upwork-ready portfolio.
 
