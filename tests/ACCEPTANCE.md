@@ -1,6 +1,6 @@
 # v0.1 Acceptance Tests — Windows 11 / Excel 2019
 
-**Status:** not run. Record the execution date, Excel bitness and result after validation.
+**Status:** basic v0.1 workflow confirmed working by the project owner on Windows 11 / Excel 2019 (VirtualBox). Individual test-case results and Office bitness were not separately recorded.
 
 | # | Scenario | Expected |
 |---|---|---|
