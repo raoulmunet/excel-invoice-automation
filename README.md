@@ -2,7 +2,7 @@
 
 Microsoft Excel + VBA business automation portfolio project: customer catalog, product/service catalog, audit history and dashboard, with quotation, invoice, PDF and Outlook automation planned in later releases.
 
-> **Status:** v0.1 source-code MVP. Files are published on GitHub but **not yet compiled or runtime-tested in Excel**. The reference test environment is Windows 11 running Microsoft Office 2019 Desktop in VirtualBox.
+> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine source is now available but not yet tested in Excel**. Its calculation, storage and compatibility must be validated before production use.
 
 ## Implemented in v0.1
 
@@ -15,7 +15,34 @@ Microsoft Excel + VBA business automation portfolio project: customer catalog, p
 
 ### Explicitly not yet implemented
 
-Quotation and invoice generation, Word templates, PDF exports, Outlook email drafts, payments, multi-user control, inventory tracking and legal tax compliance. They are on the roadmap; v0.1 must **not** be presented as a complete invoicing product.
+Legal invoice generation, Word templates, PDF exports, Outlook email drafts, payments, multi-user control, inventory tracking and legal tax compliance. They are on the roadmap; v0.1 must **not** be presented as a complete invoicing product.
+
+## v0.2 Quotation Engine (source preview; runtime testing pending)
+
+- A **Quote Draft** worksheet for Customer ID, discount percent and up to 20 catalog products with quantities.
+- `CreateQuotation` validates active customer and products, quantities, prices and sample tax rates before saving.
+- Generated `QUO-0001`-style identifiers; immutable snapshots of names, unit prices and tax rates into `Quotations` and `Quotation Lines` tables.
+- Line-level net, discount, tax and gross; summary-level totals. Money uses two-decimal rounding. This is a **fictional quotation tool**, not legally compliant invoice software.
+- New Dashboard buttons: **Quote Draft** and **Create Quote**.
+
+### Upgrade your already working v0.1 XLSM (recommended)
+
+1. Back up the existing working `.xlsm` file. **Do not rebuild from scratch if you wish to retain your customers/products.**
+2. Download the latest `src/modSetup.bas` and `src/modQuotations.bas`.
+3. In Alt+F11, remove the old `modSetup` module (export a backup first); import the updated `modSetup.bas`.
+4. Import the **new** `modQuotations.bas`. Keep `modCatalog.bas` unchanged.
+5. Select **Debug > Compile VBAProject** before proceeding. Any error must be resolved first.
+6. Run **`InitializeInvoiceApp`** from Alt+F8. It adds quotation sheets without clearing existing catalogs.
+7. On Dashboard use **Quote Draft**, fill `B4 = CUS-0001`, `B5 = 10`, `A10 = PRD-0001`, `B10 = 2`. Return to Dashboard and click **Create Quote**.
+8. Verify data in `Quotations`, `Quotation Lines` and `Audit Log`. Save/reopen and verify persistence.
+
+**Expected demo** (assuming PRD-0001 unit price 150, demo tax 0%, quantity 2, discount 10%): net **300.00**, discount **30.00**, tax **0.00**, gross **270.00**. If your catalog contains different values, the totals will differ accordingly.
+
+### Fresh v0.2 build
+
+The updated `build/Create-InvoiceWorkbook.ps1` imports **three modules**: `modCatalog.bas`, `modSetup.bas` and `modQuotations.bas`. It creates a clean `.xlsm` from scratch and refuses to overwrite an existing output. Follow the build instructions below, but use the three modules for manual import.
+
+Read the acceptance checklist: [tests/QUOTATIONS_TESTS.md](tests/QUOTATIONS_TESTS.md).
 
 ## Environment and compatibility
 
@@ -56,7 +83,7 @@ The first command is only needed if your environment permits it and the script i
 ### Manual build without PowerShell
 
 1. In Excel Desktop create a blank workbook; Save As `ExcelInvoiceAutomation.xlsm`.
-2. Press **Alt+F11**; import **only** `src/modCatalog.bas` and `src/modSetup.bas` via **File > Import File**.
+2. Press **Alt+F11**; import **only** `src/modCatalog.bas`, `src/modSetup.bas`, and `src/modQuotations.bas` via **File > Import File**.
 3. Run **Debug > Compile VBAProject**.
 4. Run `InitializeInvoiceApp` via **Alt+F8**.
 5. Remove unused blank worksheets if needed; keep all application sheets.
@@ -70,13 +97,14 @@ The first command is only needed if your environment permits it and the script i
 5. Check `Audit Log` has entries `CREATE_CUSTOMER` and `CREATE_PRODUCT`.
 6. Save, close and reopen; confirm catalog data persists.
 
-Detailed test cases in [tests/ACCEPTANCE.md](tests/ACCEPTANCE.md). **No Excel runtime tests have been performed yet.**
+Detailed test cases in [tests/ACCEPTANCE.md](tests/ACCEPTANCE.md). **v0.1 basic operations were confirmed by the project owner. v0.2 quotation operations remain untested.**
 
 ## Repository structure
 
 ```text
 src/modCatalog.bas
 src/modSetup.bas
+src/modQuotations.bas
 build/Create-InvoiceWorkbook.ps1
 samples/demo-customers.csv
 samples/demo-products.csv
@@ -96,8 +124,8 @@ LICENSE
 
 ## Roadmap
 
-- **v0.1** Customer/Product Catalog + Dashboard — published source, needs Excel 2019 verification.
-- **v0.2** Quotations, line items, calculations, sample tax rules and document numbering.
+- **v0.1** Customer/Product Catalog + Dashboard — basic tests owner-confirmed on Excel 2019.
+- **v0.2** Quotation draft, line items, sample tax and discounts, and quote numbering — published as source; Excel testing pending.
 - **v0.3** Invoice records, PDF and Word document templates, Classic Outlook draft creation.
 - **v1.0** Payment-status tracking, dashboards, tests, screenshots, release package and Upwork-ready portfolio.
 
