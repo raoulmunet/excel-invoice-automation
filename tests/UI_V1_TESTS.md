@@ -39,3 +39,7 @@ To test the corrections: replace both `modUI` and `modPayments` in the VBA edito
 ## Owner visual confirmation — 2026-10-09
 
 **PASS (user-reported):** after replacing modUI and modPayments, the previously overlapping text on row 19 disappeared and button labels became easier to read. This validates the two visual fixes only; it does not prove the complete version 1.0 regression suite or a distributable XLSM has been tested.
+
+## Sanitized package validation (owner report, 2026-10-09)
+
+The owner confirmed completion of all steps through step 5 of the local demo-sanitization workflow, including opening and checking the generated workbook. Result: owner-reported PASS for the sanitized demo smoke test. Next release gate: inspect the generated XLSM itself for privacy/embedded metadata and check a reproducible demo scenario before attaching it to the public GitHub v1.0 release.
