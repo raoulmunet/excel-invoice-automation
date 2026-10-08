@@ -216,8 +216,12 @@ LICENSE
 - **v0.3** Word/PDF quote export, demo invoice creation and duplicate prevention — owner-confirmed working. Classic Outlook draft creation owner-confirmed (no automatic sending); manual dispatch not separately tested.
 - **v0.4** Demo payment ledger, calculated balances and status, KPI dashboard and invoice filtering — owner-reported successful tests on Excel 2019.
 - **v1.0 UI preview** Modern Dashboard, grouped action buttons and visual refinements — owner-confirmed visual smoke test on Excel 2019.
-- **v1.0 final** Demo dataset, full regression tests, screenshots, release package and Upwork-ready portfolio — pending.
+- **v1.0 final** A separate sanitized demo XLSM was generated and owner-validated (Dashboard, sample data, cleared transactional history and existing functionality). Independent inspection of the actual sanitized workbook, screenshots, downloadable release package and Upwork presentation are pending.
 
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+## Sanitized demo status (owner report, 2026-10-09)
+
+The project owner reports that `Create-SanitizedDemo.ps1` ran successfully and that the generated `ExcelInvoiceAutomation_DEMO.xlsm` passed the local verification checklist: demo sheets, fictitious customer/product data, cleared quotes/invoices/payments/audit, absent test mailbox, and working initialization. **This does not constitute an independent audit of workbook metadata, hidden content or embedded VBA strings. Do not publish the workbook until a copy has been separately inspected.**
