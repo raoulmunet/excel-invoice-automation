@@ -1,0 +1,3 @@
+ProductID,ProductName,UnitPrice,DemoTaxRate,Status
+PRD-0001,Consulting hour,150.00,0,Active
+PRD-0002,Data cleanup package,250.00,0,Active
