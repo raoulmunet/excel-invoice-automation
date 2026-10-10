@@ -8,6 +8,26 @@ Microsoft Excel + VBA business automation portfolio project for customer and pro
 
 **Demo walkthrough:** [User guide](docs/USER_GUIDE.md) · [Sample scenarios](samples/demo-v1-scenarios.md) · [Screenshots: capture guide](docs/SCREENSHOTS.md). Real application screenshots will be added after privacy review.
 
+## Application screenshots (real Office 2019 captures)
+
+The following images are genuine captures from the project owner's Windows 11 / Microsoft Office 2019 test environment, using fictional demonstration data. They illustrate the application; they do not imply fiscal certification.
+
+### Business Control Center dashboard
+
+![Excel Invoice Automation v1.0 dashboard](docs/screenshots/dashboard-v1.0.png)
+
+### Quotation draft — multiple products
+
+Customer `CUS-0001`, 10% discount, `PRD-0001` quantity 2 and `PRD-0002` quantity 5.
+
+![Excel VBA quotation draft](docs/screenshots/quote-draft-v1.0.png)
+
+### Generated quotation document
+
+The multi-product example totals **2,400.00 before discount**, **240.00 discount**, and **2,160.00 final**. This screenshot is distinct from the single-product 270.00 release acceptance test.
+
+![Generated demonstration quotation Word PDF](docs/screenshots/quotation-pdf-v1.0.png)
+
 ## Implemented in v0.1
 
 - Build or rebuild the dashboard without deleting catalog records.
