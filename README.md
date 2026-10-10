@@ -1,8 +1,12 @@
 # Excel Invoice & Quotation Automation
 
-Microsoft Excel + VBA business automation portfolio project: customer catalog, product/service catalog, audit history and dashboard, with quotation, invoice, PDF and Outlook automation planned in later releases.
+Microsoft Excel + VBA business automation portfolio project for customer and product catalogs, quotations, Word/PDF documents, fictional demo invoices, payments, dashboard KPIs, Outlook drafts, and audit history.
 
-> **Status:** v0.1 basic functionality was tested successfully by the project owner in Windows 11 + Excel 2019 (VirtualBox), October 2026. **v0.2 Quotation Engine basic operation is confirmed by the project owner in Excel 2019** after importing the missing `modQuotations.bas` module. **v0.3 Word/PDF quotation export has been confirmed working by the project owner in Windows 11 / Excel and Word 2019.** **Demo invoice creation and duplicate prevention have also been confirmed by the project owner.** **Classic Outlook 2019 is now configured and the Excel VBA Outlook Draft workflow was user-tested successfully**, including test recipient, quote subject, body and attached PDF, without automatic sending. Manual dispatch from the created draft has not been separately verified. **v0.4 payment tracking was tested successfully by the project owner in Windows 11 / Excel 2019; detailed edge cases were not individually reported.**
+> **Latest public release: [v1.0.0](https://github.com/raoulmunet/excel-invoice-automation/releases/tag/v1.0.0)** — [Download the verified demo release ZIP](https://github.com/raoulmunet/excel-invoice-automation/releases/download/v1.0.0/ExcelInvoiceAutomation_v1.0_Release_Candidate.zip). Owner-tested on Windows 11 with Excel/Word/Classic Outlook 2019. The release is a **portfolio demonstration**, not fiscal invoicing or accounting software. The final demo passed nine owner-performed smoke tests on 2026-10-10 (including quotation total 270.00 and Word/PDF export). Full regression and negative-case testing remain incomplete.
+
+**Quick start:** download the ZIP from Releases, extract it, review the included guide, and open the **clean** `ExcelInvoiceAutomation_v1.0_DEMO.xlsm` in trusted desktop Excel. Do not use the populated testing workbook for public redistribution.
+
+**Demo walkthrough:** [User guide](docs/USER_GUIDE.md) · [Sample scenarios](samples/demo-v1-scenarios.md) · [Screenshots: capture guide](docs/SCREENSHOTS.md). Real application screenshots will be added after privacy review.
 
 ## Implemented in v0.1
 
@@ -46,7 +50,7 @@ Read the acceptance checklist: [tests/QUOTATIONS_TESTS.md](tests/QUOTATIONS_TEST
 
 ## v0.3 Word / PDF / Demo Invoice / Outlook (source preview)
 
-**Word and PDF generation owner-tested successfully in Microsoft Office 2019 (2026-10-08); other v0.3 features still await validation.** This version adds `src/modDocuments.bas` and new Dashboard buttons:
+**Word/PDF generation, demo invoice creation, duplicate prevention and Classic Outlook draft creation were owner-tested in Office 2019; manual Outlook sending was not separately verified.** This version adds `src/modDocuments.bas` and new Dashboard buttons:
 
 - **Quote Word/PDF** — enter saved quotation ID (e.g. `QUO-0001`), choose an output `.docx` name, and produce Word and PDF files with quote lines and totals using Word 2019 Desktop automation.
 - **Demo Invoice** — record a **DEMO-INV-0001**-style internal document from an existing quotation in a `Demo Invoices` worksheet. This is a non-fiscal, non-compliant **demonstration record**, not a VAT invoice or legal billing document.
@@ -104,13 +108,13 @@ The PowerShell builder imports **five** source modules: `modCatalog`, `modSetup`
 - [User guide](docs/USER_GUIDE.md): step-by-step catalog, quotation, Word/PDF, demo invoice, payments and Classic Outlook workflow.
 - [Fictional customers CSV](samples/demo-v1-customers.csv) and [fictional products CSV](samples/demo-v1-products.csv): example records only (not auto-imported).
 - [Walkthrough scenarios](samples/demo-v1-scenarios.md): quoted totals, partial payments, overdue and Outlook draft test.
-- [UI regression checklist](tests/UI_V1_TESTS.md): final sign-off still required.
+- [UI regression checklist](tests/UI_V1_TESTS.md): nine final smoke checks passed; full negative-case regression remains pending.
 
 **Never email reserved `example.com` / `example.org` / `example.net` customer records.** Replace the recipient with an owned test address for the Outlook test. Do not publicly upload a workbook containing personal contact information.
 
 ## v1.0 interface preview — modern Excel Dashboard
 
-**Status: Dashboard layout and visual fixes confirmed by the owner in Excel 2019; full release regression remains pending.** The earlier v0.4 / Outlook integration smoke tests were successful, but this new presentation layer still needs verification. **This is not the final v1.0 release.**
+**Status: v1.0.0 published on 2026-10-10.** The owner confirmed the modern Dashboard and corrected button/text layout in Excel 2019. Nine final release smoke tests passed; complete regression and untested edge cases remain outstanding.
 
 Changes: a dark-blue dashboard header, grouped quick actions, separate commercial/payment navigation areas, redesigned customer and financial KPI blocks, demo-only warning, and coordinated data-sheet header styling. No existing VBA business logic is changed. Module: [src/modUI.bas](src/modUI.bas).
 
@@ -126,13 +130,13 @@ Changes: a dark-blue dashboard header, grouped quick actions, separate commercia
 
 To build a fresh **empty** XLSM instead, the updated PowerShell builder imports six modules, including `modUI`; it refuses to overwrite an existing workbook.
 
-See [tests/UI_V1_TESTS.md](tests/UI_V1_TESTS.md) for visual and regression checks. **Screenshots, fictitious demo dataset, verified binary release package and full end-to-end tests are upcoming tasks.**
+See [tests/UI_V1_TESTS.md](tests/UI_V1_TESTS.md) for visual and regression checks. **The fictional demo dataset and public ZIP release are available. Real screenshots remain to be added; complete end-to-end/negative-case regression remains open.**
 
 ## Environment and compatibility
 
 | Environment | Status | Details |
 |---|---|---|
-| Windows 11 + Excel 2019 Desktop / VirtualBox | **Primary target; not tested yet** | First acceptance environment |
+| Windows 11 + Excel 2019 Desktop / VirtualBox | **Owner-tested** | Core workflow and final v1.0.0 smoke tests passed |
 | Windows 11 + Excel 2021, 2024, Microsoft 365 Desktop | Target; untested | Windows desktop VBA enabled |
 | Windows + Excel 2016 Desktop | Target; untested | No modern spreadsheet functions required |
 | Excel 32-bit / 64-bit | Designed for both; untested | No Windows API declarations |
@@ -216,12 +220,18 @@ LICENSE
 - **v0.3** Word/PDF quote export, demo invoice creation and duplicate prevention — owner-confirmed working. Classic Outlook draft creation owner-confirmed (no automatic sending); manual dispatch not separately tested.
 - **v0.4** Demo payment ledger, calculated balances and status, KPI dashboard and invoice filtering — owner-reported successful tests on Excel 2019.
 - **v1.0 UI preview** Modern Dashboard, grouped action buttons and visual refinements — owner-confirmed visual smoke test on Excel 2019.
-- **v1.0 final** A separate sanitized demo XLSM was generated and owner-validated (Dashboard, sample data, cleared transactional history and existing functionality). Independent inspection of the actual sanitized workbook, screenshots, downloadable release package and Upwork presentation are pending.
+- **v1.0.0 released 2026-10-10** — sanitized demo workbook packaged in a public ZIP; original workbook structure and personal-author metadata were reviewed, author replaced with `Demo Project`, and owner confirmed nine final smoke tests in Office 2019. Real screenshots and broader regression remain future work. [Download release](https://github.com/raoulmunet/excel-invoice-automation/releases/tag/v1.0.0).
 
 ## License
 
 MIT. See [LICENSE](LICENSE).
 
-## Sanitized demo status (owner report, 2026-10-09)
+## Release package and privacy review (2026-10-10)
 
-The project owner reports that `Create-SanitizedDemo.ps1` ran successfully and that the generated `ExcelInvoiceAutomation_DEMO.xlsm` passed the local verification checklist: demo sheets, fictitious customer/product data, cleared quotes/invoices/payments/audit, absent test mailbox, and working initialization. **This does not constitute an independent audit of workbook metadata, hidden content or embedded VBA strings. Do not publish the workbook until a copy has been separately inspected.**
+The v1.0.0 GitHub Release includes `ExcelInvoiceAutomation_v1.0_Release_Candidate.zip`. The sanitized demonstration workbook contains fictional sample records, cleared transaction history, VBA source embedded in XLSM, and `Demo Project` as author/last-modified-by metadata. The released candidate was structurally audited and the project owner subsequently confirmed opening without repairs, VBA compile, Dashboard, sample quote creation, correct 270.00 total, Word/PDF export, and author metadata.
+
+These checks are not a guarantee of exhaustive privacy auditing, code security, or functional coverage. Never upload real customer data or a populated testing copy. The v1.0.0 release is a non-fiscal single-user portfolio demo.
+
+## Screenshots
+
+Actual screenshots must be captured in Excel 2019 / Word 2019 and inspected to ensure they contain only fictional data. See [the screenshot checklist](docs/SCREENSHOTS.md). No simulated screenshots are presented as real application output.
