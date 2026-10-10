@@ -1,12 +1,12 @@
 # Real application screenshots for v1.0.0
 
-**Status:** awaiting actual captures from the validated Windows 11 / Excel 2019 workbook. Do **not** use stock pictures or generated mockups as evidence of the running application.
+**Status:** three real captures supplied by the owner on 2026-10-10, checked visually for readability and obvious personal information. Binary PNG files are not yet uploaded into the repository; the paths below are their intended destinations. Do **not** use stock pictures or generated mockups as evidence of the running application.
 
 ## Required captures
 
 1. `docs/screenshots/dashboard-v1.0.png` — show the dark-blue Dashboard header, main actions and KPIs. Use the clean fictional demo workbook; no personal identifiers.
-2. `docs/screenshots/quote-draft-v1.0.png` — in a separate testing copy, show Quote Draft: B4 = CUS-0001, B5 = 10, A10 = PRD-0001, B10 = 2. Verify the catalog IDs correspond to the fictional 150.00 / tax 0% scenario.
-3. `docs/screenshots/quotation-pdf-v1.0.png` — show the exported quotation (not an actual fiscal invoice): 2 × 150.00, 10% discount, final 270.00. Capture from Word or a PDF viewer.
+2. `docs/screenshots/quote-draft-v1.0.png` — in a separate testing copy, show Quote Draft: B4 = CUS-0001, B5 = 10, A10 = PRD-0001, B10 = 2, A11 = PRD-0002, B11 = 5. The real screenshot was supplied by the project owner.
+3. `docs/screenshots/quotation-pdf-v1.0.png` — show the actual exported demonstration quotation (not a fiscal invoice): 2 × 150.00 plus 5 × 420.00, subtotal 2400.00, 10% discount 240.00, total 2160.00. This two-product screenshot is a separate scenario from the earlier single-product 270.00 acceptance test.
 
 ## Capture and privacy steps
 
